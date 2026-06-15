@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-black: #0a0a0a;
+  --color-brand-pink: #FF3A95;
+  --color-brand-cyan: #00e5ff;
+  --color-brand-gray: #1a1a1a;
+  --color-brand-muted: #888888;
+  
+  --font-grotesk: "Hanken Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+  --font-jetbrains: "JetBrains Mono", monospace;
+}
+
+body {
+    background-color: var(--color-brand-black);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.bg-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    color: transparent;
+}
+
+.brutal-box {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(19, 19, 19, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.glow-hover-pink {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-hover-pink:hover {
+    border-color: var(--color-brand-pink);
+    box-shadow: 0 0 30px rgba(255, 58, 149, 0.15);
+    transform: translateY(-4px);
+}
+
+.glow-hover-cyan {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-hover-cyan:hover {
+    border-color: var(--color-brand-cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.15);
+    transform: translateY(-4px);
+}
+
+.brutalist-grid-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+.brutalist-grid-item::before, .brutalist-grid-item::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-brand-pink);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.brutalist-grid-item::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+.brutalist-grid-item::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+.brutalist-grid-item:hover::before, .brutalist-grid-item:hover::after {
+    opacity: 1;
+}
+.brutalist-grid-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 58, 149, 0.15), inset 0 0 20px rgba(0, 255, 157, 0.05);
+    border-color: var(--color-brand-pink);
+}
+
+.service-card {
+    background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(5,5,5,1) 100%);
+}
+
+@keyframes laser-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(800%); }
+}
+.laser-scan-container {
+    position: relative;
+    overflow: hidden;
+}
+.laser-scan-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-brand-cyan);
+    box-shadow: 0 0 15px var(--color-brand-cyan), 0 0 30px var(--color-brand-cyan);
+    z-index: 30;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.laser-scan-container:hover::after {
+    opacity: 1;
+    animation: laser-scan 1.5s linear infinite;
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spin-slow 15s linear infinite;
+}
+
+.neon-pink-border { border-color: var(--color-brand-pink); box-shadow: 0 0 15px rgba(255, 58, 149, 0.2); }
+.neon-cyan-border { border-color: var(--color-brand-cyan); box-shadow: 0 0 15px rgba(0, 255, 157, 0.2); }
+.glow-text-pink { text-shadow: 0 0 10px rgba(255, 58, 149, 0.5); }
+.glow-text-cyan { text-shadow: 0 0 10px rgba(0, 255, 157, 0.5); }
